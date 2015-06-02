@@ -6,21 +6,29 @@
  */
 // Include the Bounce2 library found here :
 // https://github.com/thomasfredericks/Bounce-Arduino-Wiring
+
+/*This program waits for a momentary or limit switch to be hit which then 
+enabled seeed studio relay shield to switch motor direction. Schematic for seeed studio
+relay shield can be found at: http://i.imgur.com/RMCVR0u.jpg , the code was originally written
+for an arduino mega however had to be switched to an arduino uno last minute hence the 
+commented out code*/
+
+
 #include <Bounce2.h>
 
-#define BUTTON_PIN A4 //one momentary switch to pin 3
-#define BUTTON_PINT A5 //another momentary switch to pin 2
+#define BUTTON_PIN A4 //one momentary switch to pin 4
+#define BUTTON_PINT A5 //another momentary switch to pin 5
 
 
 int val; //value from GUI
-byte mode = 0;
+byte mode = 0; //this is a state machine
 unsigned char relayPin[4] = {4,5,6,7};
 // Instantiate a Bounce object
 Bounce debouncer = Bounce(); 
 Bounce debouncer2 = Bounce();
-/*int PIR = A13;
-int led = 50;
-int photo_res = A12;
+/*int PIR = A13; //used a pir sensor from radioshack
+int led = 50; //this is for a buzzer to indicate when a cycle finishes
+int photo_res = A12; //for a photo resistor, didn't do anything yet
 */
 void setup() {
 
